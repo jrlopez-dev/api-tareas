@@ -1,5 +1,6 @@
 package com.todoapp.service;
 
+import com.todoapp.model.dto.UserAuntentication;
 import com.todoapp.model.dto.UsuarioDTO;
 import com.todoapp.model.entity.Usuario;
 import com.todoapp.repository.UsuarioRepository;
@@ -25,6 +26,18 @@ public class UsuariosService {
         data.setId(usuario.getId());
         return data;
 
+    }
+
+    public String getlogin(UserAuntentication data){
+        System.out.println("Entro al metodo a getlogin");
+        System.out.println(data.getUsername());
+        System.out.println(data.getPassword());
+        Optional<Usuario> usuario = usuarioRepository.findByUsernameAndPassword(data.getUsername(), data.getPassword());
+        if(usuario.isPresent()){
+            return usuario.get().getUsername();
+        }else{
+            return "Usuario no encontrado";
+        }
     }
 
     public Optional<UsuarioDTO> getUserByUsername(String username) {

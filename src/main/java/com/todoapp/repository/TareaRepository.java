@@ -10,4 +10,5 @@ public interface TareaRepository extends JpaRepository<Tarea, Long> {
     List<Tarea> findByIduser(long iduser);
 
 
+
 }

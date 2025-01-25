@@ -1,5 +1,6 @@
 package com.todoapp.controller;
 
+import com.todoapp.model.dto.UserAuntentication;
 import com.todoapp.model.dto.UsuarioDTO;
 import com.todoapp.model.entity.Usuario;
 import com.todoapp.service.UsuariosService;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/usuarios")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuaioController {
     @Autowired
     UsuariosService usuarioService;
@@ -42,5 +44,10 @@ public class UsuaioController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         usuarioService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> registerUser(@RequestBody UserAuntentication user) {
+        return ResponseEntity.ok(usuarioService.getlogin(user));
     }
 }
