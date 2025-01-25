@@ -22,6 +22,4 @@ public class Usuario {
     @Column(nullable = false)
     private String nombre;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Tarea> tasks;
 }
