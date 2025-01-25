@@ -26,7 +26,7 @@ public class TareasService {
     }
 
     public List<TareaDTO> buscarTareasPorUsuario(Long userId) {
-        List<Tarea> listaTareas = tareaRepository.findByUserId(userId);
+        List<Tarea> listaTareas = tareaRepository.findByIduser(userId);
         List<TareaDTO> listaTareasDTO = new ArrayList<>();
         if (listaTareas.isEmpty()) {
             for (Tarea tarea : listaTareas) {
@@ -38,8 +38,13 @@ public class TareasService {
         return listaTareasDTO;
     }
 
-    public Optional<Tarea> buscarTareaPorID(Long id) {
-        return tareaRepository.findById(id);
+    public Optional<TareaDTO> buscarTareaPorID(Long id) {
+        Tarea tarea = tareaRepository.findById(id).orElse(null);
+        TareaDTO tareaDTO = new TareaDTO();
+        if (tarea != null) {
+            tareaDTO = getTareaDTO(tarea);
+        }
+        return Optional.ofNullable(tareaDTO);
     }
 
     public void eliminarTarea(Long id) {

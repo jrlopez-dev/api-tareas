@@ -7,5 +7,7 @@ import java.util.List;
 
 @Repository
 public interface TareaRepository extends JpaRepository<Tarea, Long> {
-    List<Tarea> findByUserId(Long userId);
+    List<Tarea> findByIduser(long iduser);
+
+
 }

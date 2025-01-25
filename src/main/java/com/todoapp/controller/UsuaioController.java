@@ -1,5 +1,6 @@
 package com.todoapp.controller;
 
+import com.todoapp.model.dto.UsuarioDTO;
 import com.todoapp.model.entity.Usuario;
 import com.todoapp.service.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,26 +18,22 @@ public class UsuaioController {
 
     // Registrar un nuevo usuario
     @PostMapping("/register")
-    public ResponseEntity<Usuario> registerUser(@RequestBody Usuario usuario) {
-        Optional<Usuario> existente = usuarioService.getUserByUsername(usuario.getUsername());
-        if (existente.isPresent()) {
-            return ResponseEntity.badRequest().build();
-        }
-        Usuario nuevoUsuario = usuarioService.registerUser(usuario);
+    public ResponseEntity<UsuarioDTO> registerUser(@RequestBody UsuarioDTO usuario) {
+        UsuarioDTO nuevoUsuario = usuarioService.registerUser(usuario);
         return ResponseEntity.ok(nuevoUsuario);
     }
 
     // Obtener un usuario por su ID
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getUserById(@PathVariable Long id) {
-        Optional<Usuario> usuario = usuarioService.getUserById(id);
+    public ResponseEntity<UsuarioDTO> getUserById(@PathVariable Long id) {
+        Optional<UsuarioDTO> usuario = usuarioService.getUserById(id);
         return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // Obtener todos los usuarios
     @GetMapping
-    public ResponseEntity<List<Usuario>> getAllUsers() {
-        List<Usuario> usuarios = usuarioService.getAllUsers();
+    public ResponseEntity<List<UsuarioDTO>> getAllUsers() {
+        List<UsuarioDTO> usuarios = usuarioService.getAllUsers();
         return ResponseEntity.ok(usuarios);
     }
 
